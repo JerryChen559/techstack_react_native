@@ -1,18 +1,30 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { FlatList } from "react-native";
 import { connect } from "react-redux";
+import ListItem from "./ListItem";
 
 class LibraryList extends Component {
-  render() {
-    console.log(this.props);
+  renderItem(library) {
+    return <ListItem library={library} />;
+  }
 
-    return <View />;
+  render() {
+    // console.log(this.props);
+
+    return (
+      <FlatList
+        data={this.props.libraries}
+        renderItem={this.renderItem}
+        // need key similar to classic mapping of list method.
+        keyExtractor={library => library.id}
+      />
+    );
   }
 }
 
 const mapStateToProps = state => {
   // whatever gets returned becomes props for LibraryList
-  console.log(state);
+  // console.log(state);
   return { libraries: state.libraries };
 };
 
